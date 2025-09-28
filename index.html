@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ProEdge Strategy — Premium Signals</title>
+<meta name="description" content="Premium trading signals for Crypto, Forex, Stocks & Gold. Join our Discord, subscribe via Stripe/PayPal, or pay one-time in USDT via Coinbase Commerce." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1720; --panel:#101824; --panel2:#0c1420;
+    --text:#e8eff7; --muted:#92a3ba;
+    --brand1:#2dd4bf; --brand2:#60a5fa;
+    --ok:#30d158;
+    --paypal:#ffc439; --usdt:#16a34a; --stripe:#482c7a;
+    --shadow:0 18px 50px rgba(0,0,0,.35);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--text);
+    font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif; line-height:1.5;
+    background:radial-gradient(1100px 600px at 50% 0,#0e1a2a 0,#0b121c 50%,#09111a 100%) fixed;
+  }
+  a{color:inherit;text-decoration:none}
+  .container{width:min(1200px,92%);margin:0 auto}
+
+  /* Header */
+  header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:saturate(180%) blur(14px);
+    background:rgba(10,14,22,.65);
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .nav{display:flex;align-items:center;gap:14px;padding:12px 0}
+  .brand{display:flex;align-items:center;gap:14px;flex:1}
+  .brand img{height:44px;width:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))}
+  .tagline{color:#cfe0f8;font-weight:600;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:14px;
+    font-weight:700;border:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(180deg,#1c2635,#121a28); box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
+    transition:.18s transform,.18s box-shadow,.18s background;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{background:linear-gradient(180deg,#0ea5e9,#0b74d0);color:#04111e}
+  .btn-ghost{background:linear-gradient(180deg,#202a3a,#121a28)}
+  .ico{width:18px;height:18px;display:inline-block}
+  .ico img{width:100%;height:100%;display:block}
+
+  .social{display:flex;gap:10px;margin-left:6px}
+  .social a{
+    width:38px;height:38px;display:grid;place-items:center;border-radius:12px;
+    background:linear-gradient(180deg,#192334,#0f1623);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), var(--shadow);
+    transition:.18s transform,.18s box-shadow,.18s background;
+  }
+  .social a:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.06)}
+  .social img{width:22px;height:22px;display:block}
+
+  /* Sections */
+  section{padding:60px 0}
+  h2{font-size:32px;margin:0 0 20px;text-align:center;letter-spacing:.2px}
+  .lead{color:var(--muted);text-align:center;margin-top:-8px}
+
+  /* Free tile */
+  .free-wrap{display:grid;place-items:center}
+  .card{
+    background:linear-gradient(180deg,#101826,#0e1521);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:24px;
+  }
+  .card.sm{width:min(720px,100%)}
+  .title{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .list{display:grid;gap:12px;margin:16px 0 18px}
+  .li{
+    display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px;
+    background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06)
+  }
+  .tick{width:18px;height:18px;margin-top:2px;flex:0 0 18px;display:grid;place-items:center}
+  .tick svg{width:14px;height:14px;stroke:var(--ok);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  /* Pricing */
+  .pricing{display:grid;gap:22px}
+  @media (min-width:1000px){.pricing{grid-template-columns:1fr 1fr}}
+  .plan{
+    background:linear-gradient(180deg,#101826,#0e1521);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;
+  }
+  .price{font-size:28px;font-weight:800}
+  .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(94,234,212,.12);border:1px solid rgba(94,234,212,.35);color:#9be7d9;font-weight:700;font-size:12px}
+  .pay-row{display:grid;gap:12px;margin-top:14px}
+  .btn-wide{width:100%;justify-content:center}
+  .btn-stripe{background:linear-gradient(180deg,#4c2f88,#2b184a);color:#eadfff}
+  .btn-paypal{background:var(--paypal);color:#111}
+  .btn-debit{background:linear-gradient(180deg,#404959,#2a303b);color:#eaf1f7}
+  .btn-crypto{background:linear-gradient(180deg,#10b981,#15803d);color:#eafff6}
+  .pay-note{display:flex;align-items:center;gap:6px;color:#a7b7cc;font-size:12.5px}
+  .pay-note img{width:18px;height:18px}
+
+  /* Community */
+  .grid-3{display:grid;gap:18px}
+  @media (min-width:950px){.grid-3{grid-template-columns:1fr 1fr 1fr}}
+  .shot{background:linear-gradient(180deg,#0f1623,#0c131d);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .shot img{width:100%;height:300px;object-fit:cover;display:block}
+  .shot .cap{padding:10px 12px;color:#cbd8ea;border-top:1px solid rgba(255,255,255,.06)}
+
+  /* Charts */
+  .charts{display:grid;gap:18px;margin-top:10px}
+  @media (min-width:1000px){.charts{grid-template-columns:1fr 1fr 1fr}}
+  .chart-card{border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#0f1623,#0c131d);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow)}
+  .tv-wrap{position:relative;width:100%;height:300px}
+  @media (min-width:1200px){.tv-wrap{height:330px}}
+
+  /* Footer */
+  footer{padding:26px 0 36px;border-top:1px solid rgba(255,255,255,.06);margin-top:34px}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .foot .left{display:flex;align-items:center;gap:12px}
+  .foot .left img{height:28px}
+  .copy{color:#a7b7cc}
+  .foot .social a{width:42px;height:42px;border-radius:14px}
+
+  /* ===== Success Modal ===== */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);display:none;z-index:80}
+  .modal-backdrop.is-open{display:block}
+  .modal{width:min(560px,92%);margin:8vh auto;background:linear-gradient(180deg,#101826,#0e1521);
+    border:1px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:0 22px 70px rgba(0,0,0,.45);padding:22px}
+  .modal h3{margin:0 0 8px;font-size:22px}
+  .modal p{margin:0 0 16px;color:#a8bdd4}
+  .modal .row{display:flex;gap:10px;flex-wrap:wrap}
+  .badge{display:inline-block;padding:4px 10px;border-radius:999px;margin-bottom:10px;background:rgba(94,234,212,.12);border:1px solid rgba(94,234,212,.35);color:#9be7d9;font-weight:700;font-size:12px}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <img src="assets/logo.png" alt="ProEdge Strategy" />
+      <div class="tagline">Premium Trading Signals • <span class="muted">Crypto • Forex • Stocks • Gold</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a class="btn btn-primary" href="#pricing">Join Now</a>
+      <a class="btn btn-ghost" href="https://discord.gg/grxT9CqKhd" target="_blank" rel="noopener">
+        <span class="ico"><img src="assets/icons/discord.svg" alt=""></span> Join Free Discord
+      </a>
+      <div class="social">
+        <a href="https://www.tradingview.com/u/Crypto_Watch15/" target="_blank" rel="noopener" title="TradingView"><img src="assets/icons/tradingview.svg" alt="TradingView"></a>
+        <a href="https://discord.gg/grxT9CqKhd" target="_blank" rel="noopener" title="Discord"><img src="assets/icons/discord.svg" alt="Discord"></a>
+        <a href="https://x.com/proedgestrategy?s=21" target="_blank" rel="noopener" title="X / Twitter"><img src="assets/icons/x.svg" alt="X"></a>
+        <a href="https://youtube.com/@proedgestrategy?si=18A9KZL290v3pxx2" target="_blank" rel="noopener" title="YouTube"><img src="assets/icons/youtube.svg" alt="YouTube"></a>
+        <a href="https://www.facebook.com/share/19t4awAGWs/?mibextid=wwXIfr" target="_blank" rel="noopener" title="Facebook"><img src="assets/icons/facebook.svg" alt="Facebook"></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Free -->
+  <section id="free">
+    <div class="container free-wrap">
+      <div class="card sm">
+        <div class="title">
+          <h2 style="margin:0">Free</h2>
+          <div class="muted">$0 <span style="font-size:12px">/ limited time</span></div>
+        </div>
+        <div class="list">
+          <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> Access to public Discord channels & <b>all free bots</b>.</div>
+          <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> Basic market analysis & chart ideas.</div>
+          <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> <b>Manual bot (trial):</b> Search pair • free auto analysis <b>for all trading pairs</b>.</div>
+          <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> Tweet alerts & super-fast news pings.</div>
+          <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> Community help & discussion.</div>
+        </div>
+        <a class="btn btn-primary btn-wide" href="https://discord.gg/grxT9CqKhd" target="_blank" rel="noopener">
+          <span class="ico"><img src="assets/icons/discord.svg" alt=""></span> Join Free Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" style="padding-top:34px">
+    <div class="container">
+      <h2>Pricing Plans</h2>
+      <p class="lead">Cancel anytime • Instant Discord access after payment</p>
+
+      <div class="pricing">
+        <!-- Starter -->
+        <div class="plan">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3>Starter</h3>
+            <div class="price">$14 <span class="muted" style="font-size:12px">/ month</span></div>
+          </div>
+
+          <div class="list" style="margin-top:12px">
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> Discord access to <b>all trading bots</b> (Starter tier).</div>
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> Separate signals for <b>futures</b>, <b>long/buy</b>, <b>short/sell</b> & <b>spot</b>.</div>
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> <b>Consistent</b> scalping & swing trade signals.</div>
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> Daily chart analysis of <b>BTC</b>, <b>Gold</b> & selected pairs.</div>
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> Community help & standard support.</div>
+          </div>
+
+          <div class="pay-row">
+            <a class="btn btn-stripe btn-wide" href="https://buy.stripe.com/3cI8wRfDYbQH09RdoO6sw00" target="_blank" rel="noopener">
+              <span class="ico"><img src="assets/icons/stripe.svg" alt=""></span> Pay with Card (Stripe)
+            </a>
+            <a class="btn btn-paypal btn-wide js-pp" data-plan="starter" href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-05V54569V2668300KNDJ4Y6Y" target="_blank" rel="noopener">
+              <span class="ico"><img src="assets/icons/paypal.svg" alt=""></span> PayPal
+            </a>
+            <a class="btn btn-debit btn-wide js-pp" data-plan="starter" href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-05V54569V2668300KNDJ4Y6Y" target="_blank" rel="noopener">
+              Debit or Credit Card
+            </a>
+            <div class="pay-note">
+              <img src="assets/icons/paypal.svg" alt=""> <span>Subscriptions via PayPal/Stripe. Crypto is one-time via Coinbase Commerce.</span>
+            </div>
+            <a class="btn btn-crypto btn-wide" href="https://commerce.coinbase.com/checkout/1606a3a4-df43-4337-9a26-551ba953e160" target="_blank" rel="noopener">
+              <span class="ico"><img src="assets/icons/usdt.svg" alt=""></span> Pay with Crypto (USDT)
+            </a>
+          </div>
+        </div>
+
+        <!-- Pro -->
+        <div class="plan">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3>Pro</h3>
+            <div class="price">$29 <span class="muted" style="font-size:12px">/ month</span></div>
+          </div>
+
+          <div class="list" style="margin-top:12px">
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> <b>Everything in Starter</b> + more power & control.</div>
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> <b>ProEdge Strategy Indicator</b> (full access).</div>
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> <b>Earlier alerts</b> & expanded strategies.</div>
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> <b>Live chart analysis</b> for major pairs (BTC, Gold, EUR/USD).</div>
+            <div class="li"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11"/></svg></span> Dedicated bots for BTC & Gold momentum, curated portfolios & risk templates.</div>
+          </div>
+
+          <div class="pay-row">
+            <a class="btn btn-stripe btn-wide" href="https://buy.stripe.com/4gMdRbgI21c3g8PbgG6sw01" target="_blank" rel="noopener">
+              <span class="ico"><img src="assets/icons/stripe.svg" alt=""></span> Pay with Card (Stripe)
+            </a>
+            <a class="btn btn-paypal btn-wide js-pp" data-plan="pro" href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5KV68761TF399561FNDL532I" target="_blank" rel="noopener">
+              <span class="ico"><img src="assets/icons/paypal.svg" alt=""></span> PayPal
+            </a>
+            <a class="btn btn-debit btn-wide js-pp" data-plan="pro" href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5KV68761TF399561FNDL532I" target="_blank" rel="noopener">
+              Debit or Credit Card
+            </a>
+            <div class="pay-note">
+              <img src="assets/icons/paypal.svg" alt=""> <span>Subscriptions via PayPal/Stripe. Crypto is one-time via Coinbase Commerce.</span>
+            </div>
+            <a class="btn btn-crypto btn-wide" href="https://commerce.coinbase.com/checkout/4de80dea-c3db-4989-bb0f-f03eacecbaac" target="_blank" rel="noopener">
+              <span class="ico"><img src="assets/icons/usdt.svg" alt=""></span> Pay with Crypto (USDT)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community -->
+  <section id="community">
+    <div class="container">
+      <h2>Community Highlights</h2>
+      <p class="lead">Recent wins, charts & callouts from our feeds.</p>
+      <div class="grid-3">
+        <figure class="shot">
+          <img src="assets/proof1.jpg" alt="Bot signal clean move">
+          <figcaption class="cap">Bot signal ➜ clean move</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/proof2.jpg" alt="Premium indicator signals">
+          <figcaption class="cap">Premium indicator signals</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/proof3.jpg" alt="Premium indicator pro signals">
+          <figcaption class="cap">Premium indicator pro signals</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video -->
+  <section id="video" style="padding-top:22px">
+    <div class="container">
+      <h2>Latest Video</h2>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div style="position:relative;padding-top:56.25%">
+          <iframe
+            src="https://www.youtube.com/embed/wf_vvbAiJBY?rel=0&modestbranding=1"
+            title="ProEdge Strategy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charts -->
+  <section id="markets">
+    <div class="container">
+      <h2>Live Market Snapshots</h2>
+      <div class="charts">
+        <div class="chart-card"><div class="tv-wrap" id="tv-btc"></div></div>
+        <div class="chart-card"><div class="tv-wrap" id="tv-xau"></div></div>
+        <div class="chart-card"><div class="tv-wrap" id="tv-eur"></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="container foot">
+    <div class="left">
+      <img src="assets/logo.png" alt="ProEdge Strategy logo">
+      <div class="copy">© 2025 ProEdge Strategy. All rights reserved.</div>
+    </div>
+    <div class="social">
+      <a href="https://discord.gg/grxT9CqKhd" target="_blank" rel="noopener" title="Discord"><img src="assets/icons/discord.svg" alt="Discord"></a>
+      <a href="https://x.com/proedgestrategy?s=21" target="_blank" rel="noopener" title="X / Twitter"><img src="assets/icons/x.svg" alt="X"></a>
+      <a href="https://youtube.com/@proedgestrategy?si=18A9KZL290v3pxx2" target="_blank" rel="noopener" title="YouTube"><img src="assets/icons/youtube.svg" alt="YouTube"></a>
+      <a href="https://www.facebook.com/share/19t4awAGWs/?mibextid=wwXIfr" target="_blank" rel="noopener" title="Facebook"><img src="assets/icons/facebook.svg" alt="Facebook"></a>
+      <a href="https://www.tradingview.com/u/Crypto_Watch15/" target="_blank" rel="noopener" title="TradingView"><img src="assets/icons/tradingview.svg" alt="TradingView"></a>
+    </div>
+  </div>
+</footer>
+
+<!-- TradingView advanced chart script -->
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script>
+  // Show top toolbar so symbol & live price are visible
+  function compactChart(containerId, symbol){
+    new TradingView.widget({
+      autosize:true,
+      symbol:symbol,
+      interval:"15",
+      timezone:"Etc/UTC",
+      theme:"dark",
+      style:"3",
+      locale:"en",
+      hide_top_toolbar:false,  // <-- show header (symbol + price)
+      hide_legend:true,
+      withdateranges:false,
+      hide_side_toolbar:true,
+      allow_symbol_change:false,
+      studies: [],
+      container_id:containerId
+    });
+  }
+  compactChart("tv-btc","BINANCE:BTCUSDT");
+  compactChart("tv-xau","OANDA:XAUUSD");
+  compactChart("tv-eur","OANDA:EURUSD");
+
+  // ---------- PayPal plan memory ----------
+  // When user clicks a PayPal button, remember which tier they intended.
+  Array.from(document.querySelectorAll('.js-pp')).forEach(a=>{
+    a.addEventListener('click', ()=>{
+      localStorage.setItem('pes:lastPayPalPlan', a.dataset.plan || '');
+    });
+  });
+</script>
+
+<!-- Success Modal (auto-opens when URL has ?success=1&src=stripe|paypal|coinbase&plan=starter|pro) -->
+<div id="successBackdrop" class="modal-backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="thanksTitle">
+    <div class="badge" id="thanksBadge">Payment confirmed</div>
+    <h3 id="thanksTitle">You’re in! Let’s get you on Discord.</h3>
+    <p>Your <b id="planName">Pro</b> membership is active. Tap below to join and unlock your channels.</p>
+    <div class="row" style="margin-top:10px">
+      <a id="joinDiscordBtn" class="btn btn-primary btn-wide" href="https://discord.gg/grxT9CqKhd" target="_blank" rel="noopener">Join Discord now</a>
+      <button id="closeThanksBtn" class="btn btn-ghost btn-wide" type="button">Close</button>
+    </div>
+    <p style="margin-top:12px;font-size:12.5px;color:#9fb2c9">Backup invite: <a href="https://discord.gg/grxT9CqKhd" target="_blank" rel="noopener">discord.gg/grxT9CqKhd</a></p>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const qs = new URLSearchParams(location.search);
+    if(qs.get('success') !== '1') return;
+    let src  = (qs.get('src')  || '').toLowerCase();   // stripe | paypal | coinbase
+    let plan = (qs.get('plan') || '').toLowerCase();   // starter | pro
+
+    // If PayPal redirected without a plan param, use the last clicked tier
+    if(src === 'paypal' && !plan){
+      plan = (localStorage.getItem('pes:lastPayPalPlan') || 'starter').toLowerCase();
+    }
+
+    const onceKey = 'pes:thanksShown:' + (src||'unknown') + ':' + (plan||'unknown');
+    if(localStorage.getItem(onceKey)){ history.replaceState({},'',location.pathname); return; }
+    localStorage.setItem(onceKey,Date.now());
+
+    const backdrop = document.getElementById('successBackdrop');
+    const joinBtn  = document.getElementById('joinDiscordBtn');
+    const planName = document.getElementById('planName');
+    const badge    = document.getElementById('thanksBadge');
+
+    planName.textContent = (plan==='starter') ? 'Starter' : 'Pro';
+    if(src==='stripe')   badge.textContent='Stripe payment confirmed';
+    if(src==='paypal')   badge.textContent='PayPal subscription active';
+    if(src==='coinbase') badge.textContent='Crypto payment received';
+
+    // Tag Discord link for simple attribution
+    const baseInvite='https://discord.gg/grxT9CqKhd';
+    const tagSrc = src || 'unknown';
+    const tagPlan = plan || 'unknown';
+    joinBtn.href = baseInvite+'?ref='+encodeURIComponent(tagSrc)+'&plan='+encodeURIComponent(tagPlan);
+
+    backdrop.classList.add('is-open');
+    document.getElementById('closeThanksBtn').addEventListener('click', close);
+    backdrop.addEventListener('click',(e)=>{ if(e.target===backdrop) close(); });
+    function close(){ backdrop.classList.remove('is-open'); history.replaceState({},'',location.pathname); }
+  })();
+</script>
+
+</body>
+</html>
