@@ -99,8 +99,14 @@
     /* Thin green ticks */
     .features{display:flex; flex-direction:column; gap:10px; margin:12px 0 16px}
     .feat{display:flex; gap:10px; align-items:flex-start; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.05); padding:12px 14px; border-radius:12px}
+    .feat-text{flex:1; min-width:0; overflow-wrap:anywhere; word-break:normal}
     .tick{margin-top:1px}
     .tick svg{width:18px;height:18px; stroke:var(--success); stroke-width:3; fill:none}
+    /* Allow wrapping inside bold text to avoid awkward breaks */
+    .features strong{white-space:normal; overflow-wrap:anywhere; word-break:break-word}
+    /* Improve wrapping on small screens */
+    .feat{line-height:1.45; overflow-wrap:anywhere; word-break:normal}
+    .feat .tick{flex:0 0 auto; margin-top:3px}
 
     .badges{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 2px}
     .badge{font-size:12px; color:#cbd5e1; background:rgba(148,163,184,.12); border:1px solid rgba(255,255,255,.06); padding:6px 10px; border-radius:999px}
@@ -122,7 +128,7 @@
 
     /* Keep Free and Pricing close so Pricing peeks */
     #free{padding-bottom:16px}
-    #pricing{padding-top:12px}
+    /* #pricing{padding-top:12px} */
 
     /* Community images */
     .proof-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px}
@@ -154,6 +160,7 @@
       .tagline{display:none}
       .hero h2{font-size:23px}
       .section-title{font-size:22px}
+      .hero h1{font-size:28px; line-height:1.25; overflow-wrap:anywhere}
       .header .social{display:none}
       .social-toggle{display:inline-flex}
       .footer-inner{flex-wrap:wrap}
@@ -234,19 +241,19 @@
         <div class="features">
           <div class="feat">
             <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-            Access to public Discord channels & <strong>all free bots</strong>
+            <span class="feat-text">Access to public Discord channels & <strong>all free bots</strong></span>
           </div>
           <div class="feat">
             <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-            Basic market analysis & community chart ideas
+            <span class="feat-text">Basic market analysis & community chart ideas</span>
           </div>
           <div class="feat">
             <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-            <strong>Manual bot (trial):</strong>&nbsp; <strong>Search pair</strong> • free auto analysis for all available trading pairs
+            <span class="feat-text"><strong>Manual bot (trial):</strong> <strong>Search pair</strong> • free auto analysis for all available trading pairs</span>
           </div>
           <div class="feat">
             <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-            Tweet alerts & fast news pings
+            <span class="feat-text">Tweet alerts & fast news pings</span>
           </div>
         </div>
 
@@ -272,11 +279,11 @@
           </div>
 
           <div class="features">
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> Discord access to <strong>all trading bots</strong> (Starter tier)</div>
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> Separate signals for <strong>futures, long/buy, short/sell & spot</strong></div>
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> <strong>Consistent</strong> scalping & swing trade signals</div>
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> Daily chart analysis of <strong>BTC, Gold</strong> & selected pairs</div>
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> Community help & standard support</div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> Discord access to <strong>all trading bots</strong> (Starter tier)</span></div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> Separate signals for <strong>futures, long/buy, short/sell & spot</strong></span></div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> <strong>Consistent</strong> scalping & swing trade signals</span></div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> Daily chart analysis of <strong>BTC, Gold</strong> & selected pairs</span></div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> Community help & standard support</span></div>
           </div>
 
           <div class="badges"><span class="badge">Crypto</span><span class="badge">Forex</span><span class="badge">Stocks</span><span class="badge">Gold</span></div>
@@ -306,11 +313,11 @@
           </div>
 
           <div class="features">
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> <strong>Everything in Starter</strong> + more power & control</div>
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> <strong>ProEdge Strategy Indicator</strong> (full access)</div>
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> <strong>Earlier alerts</strong> & expanded strategies</div>
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> Live chart analysis for major pairs (<strong>BTC, Gold, EUR/USD</strong>)</div>
-            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span> Dedicated BTC & Gold momentum bots, curated portfolios & risk templates</div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> <strong>Everything in Starter</strong> + more power & control</span></div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> <strong>ProEdge Strategy Indicator</strong> (full access)</span></div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> <strong>Earlier alerts</strong> & expanded strategies</span></div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> Live chart analysis for major pairs (<strong>BTC, Gold, EUR/USD</strong>)</span></div>
+            <div class="feat"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="feat-text"> Dedicated BTC & Gold momentum bots, curated portfolios & risk templates</span></div>
           </div>
 
           <div class="badges"><span class="badge">Crypto</span><span class="badge">Forex</span><span class="badge">Stocks</span><span class="badge">Gold</span><span class="badge">Indicator included</span></div>
