@@ -49,7 +49,7 @@
 
     /* Header (no layout change; just polish + icons) */
     .header{position:sticky; top:0; z-index:60; backdrop-filter:saturate(1.2) blur(10px); background:rgba(10,18,28,.68); border-bottom:1px solid rgba(255,255,255,.05)}
-    .header-inner{display:flex; align-items:center; gap:14px; padding:10px 0}
+    .header-inner{display:flex; align-items:center; gap:14px; padding:10px 10px;}
     .brand{display:flex; align-items:center; gap:12px}
     .brand img{height:36px; width:auto; filter:drop-shadow(0 8px 22px rgba(59,130,246,.35))}
     .brand h1{font-family:"DM Sans",Inter,sans-serif; font-size:18px; font-weight:700; letter-spacing:.2px; white-space:nowrap}
@@ -65,6 +65,19 @@
     }
     .social a:hover{ transform:translateY(-2px) scale(1.06); box-shadow:0 12px 28px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06) }
     .social img{ width:22px; height:22px; display:block; }
+
+    /* Social drawer + mobile toggle */
+    .social-toggle{display:none; align-items:center; gap:8px; padding:9px 12px; border-radius:10px; font-weight:800; background:linear-gradient(180deg,#15253a,#0d1626); border:1px solid rgba(255,255,255,.1); color:#d7e6f3}
+    .social-toggle svg{width:20px;height:20px}
+    #drawer-overlay{position:fixed; inset:0; background:rgba(0,0,0,.55); opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:85}
+    #drawer{position:fixed; top:0; right:0; height:100%; width:min(340px, 92vw); background:linear-gradient(180deg,#0e1526,#0b1220); border-left:1px solid rgba(255,255,255,.08); box-shadow: -20px 0 60px rgba(0,0,0,.5); transform:translateX(100%); transition:transform .25s ease; z-index:90; display:flex; flex-direction:column}
+    #drawer header{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.06)}
+    #drawer header .title{font-family:"DM Sans"; font-weight:700}
+    #drawer .list{display:flex; flex-direction:column; padding:14px; gap:10px}
+    #drawer .link{display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:12px; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.08)}
+    #drawer .link img{width:20px;height:20px}
+    body.is-drawer-open #drawer{transform:translateX(0)}
+    body.is-drawer-open #drawer-overlay{opacity:1; pointer-events:auto}
 
     /* Sections */
     section{padding: clamp(26px, 5vw, 80px) 0}
@@ -113,6 +126,9 @@
 
     /* Community images */
     .proof-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px}
+    .proof-grid img.card{width:100%; height:240px; object-fit:cover; padding:0; border-radius:16px}
+    @media (min-width:640px){ .proof-grid img.card{height:280px} }
+    @media (min-width:980px){ .proof-grid img.card{height:320px} }
 
     /* Charts */
     .charts{display:grid; gap:16px}
@@ -120,9 +136,16 @@
     .chart-card{background:var(--panel); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:8px; box-shadow:var(--shadow-lg)}
     .chart{height:300px}
 
+    /* Buttons (used by Free plan CTA) */
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:11px 14px; border-radius:12px; font-weight:800; border:1px solid rgba(255,255,255,.12); background:#13263a; color:var(--text); line-height:1.2; transition:transform .12s ease, box-shadow .15s ease, background .15s ease; box-shadow:0 6px 18px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05)}
+    .btn img{width:18px;height:18px}
+    .btn-primary{background:linear-gradient(180deg,#2b4b7c,#1a355a); border-color:rgba(59,130,246,.35)}
+    .btn:hover{ transform:translateY(-2px) scale(1.02); box-shadow:0 12px 28px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06) }
+    .btn:active{ transform:translateY(0); box-shadow:0 6px 18px rgba(0,0,0,.35) }
+
     /* Footer (icons polished) */
     footer{border-top:1px solid rgba(255,255,255,.06); margin-top:36px}
-    .footer-inner{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:24px 0}
+    .footer-inner{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:24px 10px;}
     footer .brand img{height:30px}
 
     /* Mobile heading sizing only (no layout change) */
@@ -131,6 +154,11 @@
       .tagline{display:none}
       .hero h2{font-size:23px}
       .section-title{font-size:22px}
+      .header .social{display:none}
+      .social-toggle{display:inline-flex}
+      .footer-inner{flex-wrap:wrap}
+      .footer-inner .social{width:100%; justify-content:center; margin-top:8px}
+      .footer-inner .footer-text{width:100%; text-align:center; margin-bottom:10px}
     }
   </style>
 
@@ -160,7 +188,7 @@
         <img src="assets/logo.png" alt="ProEdge Strategy logo">
         <h1>ProEdge Strategy</h1>
       </a>
-      <div class="tagline">BTC • Crypto • Forex • Stocks • <strong>Gold</strong></div>
+      <!-- <div class="tagline">BTC • Crypto • Forex • Stocks • <strong>Gold</strong></div> -->
       <div class="spacer"></div>
       <!-- FIXED social icons -->
       <nav class="social" aria-label="Social links">
@@ -180,13 +208,16 @@
           <img src="assets/icons/facebook.svg" alt="Facebook">
         </a>
       </nav>
+      <button id="socialToggle" class="social-toggle" aria-label="Open social links" aria-controls="drawer" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
   </header>
 
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" style="padding-bottom: 0px">
     <div class="wrap" style="text-align:center">
-      <h2>BTC, Crypto, Forex & Gold Trading Signals — Beginner-Friendly</h2>
+      <h1 style="font-size: 36px">BTC, Crypto, Forex & Gold Trading Signals — Beginner-Friendly</h1>
       <p>Real-time alerts, Discord bots, and strategy walkthroughs. Join free, upgrade for the ProEdge Indicator and earlier signals.</p>
     </div>
   </section>
@@ -203,7 +234,7 @@
         <div class="features">
           <div class="feat">
             <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-            Access to public Discord channels & <strong>&nbsp;all free bots</strong>
+            Access to public Discord channels & <strong>all free bots</strong>
           </div>
           <div class="feat">
             <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
@@ -349,8 +380,7 @@
   <!-- Footer (icons fixed) -->
   <footer>
     <div class="wrap footer-inner">
-      <a class="brand" href="/"><img src="assets/logo.png" alt="ProEdge Strategy small logo"></a>
-      <div style="color:var(--muted)">© 2025 ProEdge Strategy. All rights reserved.</div>
+      <div class="footer-text" style="color:var(--muted)">© 2025 ProEdge Strategy. All rights reserved.</div>
       <div class="social">
         <a href="https://discord.gg/grxT9CqKhd" target="_blank" rel="noopener" aria-label="Discord"><img src="assets/icons/discord.svg" alt="Discord"></a>
         <a href="https://x.com/proedgestrategy?s=21" target="_blank" rel="noopener" aria-label="X (Twitter)"><img src="assets/icons/x.svg" alt="X"></a>
@@ -359,6 +389,34 @@
       </div>
     </div>
   </footer>
+
+  <!-- Social Drawer -->
+  <div id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
+    <header>
+      <div class="title" id="drawer-title">Connect with us</div>
+      <button id="drawerClose" class="social-toggle" style="padding:8px 10px" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+    <div class="list" role="menu">
+      <a class="link" role="menuitem" href="https://www.tradingview.com/u/Crypto_Watch15/" target="_blank" rel="noopener">
+        <img src="assets/icons/tradingview.svg" alt=""> TradingView
+      </a>
+      <a class="link" role="menuitem" href="https://discord.gg/grxT9CqKhd" target="_blank" rel="noopener">
+        <img src="assets/icons/discord.svg" alt=""> Discord
+      </a>
+      <a class="link" role="menuitem" href="https://x.com/proedgestrategy?s=21" target="_blank" rel="noopener">
+        <img src="assets/icons/x.svg" alt=""> X (Twitter)
+      </a>
+      <a class="link" role="menuitem" href="https://youtube.com/@proedgestrategy?si=18A9KZL290v3pxx2" target="_blank" rel="noopener">
+        <img src="assets/icons/youtube.svg" alt=""> YouTube
+      </a>
+      <a class="link" role="menuitem" href="https://www.facebook.com/share/19t4awAGWs/?mibextid=wwXIfr" target="_blank" rel="noopener">
+        <img src="assets/icons/facebook.svg" alt=""> Facebook
+      </a>
+    </div>
+  </div>
+  <div id="drawer-overlay" tabindex="-1" aria-hidden="true"></div>
 
   <!-- Success Modal (unchanged flow) -->
   <div id="success-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="success-title" style="display:none; place-items:center; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:80">
@@ -433,7 +491,7 @@
       const p = qs();
       const src = p.get('src') || 'paypal';
       openSuccessModal({plan, src});
-    }
+    };
     (function handleReturn(){
       const p = qs();
       if (p.get('success') === '1'){
@@ -441,6 +499,21 @@
         const plan = p.get('plan'); // PayPal might not pass this
         openSuccessModal({plan, src, showPlanPicker: !plan});
       }
+    })();
+
+    /* Mobile social drawer */
+    (function mobileDrawer(){
+      const body = document.body;
+      const toggle = document.getElementById('socialToggle');
+      const drawer = document.getElementById('drawer');
+      const overlay = document.getElementById('drawer-overlay');
+      const closeBtn = document.getElementById('drawerClose');
+      function open(){ body.classList.add('is-drawer-open'); toggle?.setAttribute('aria-expanded','true'); drawer?.setAttribute('aria-hidden','false'); }
+      function close(){ body.classList.remove('is-drawer-open'); toggle?.setAttribute('aria-expanded','false'); drawer?.setAttribute('aria-hidden','true'); }
+      toggle?.addEventListener('click', open);
+      overlay?.addEventListener('click', close);
+      closeBtn?.addEventListener('click', close);
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
     })();
   </script>
 </body>
